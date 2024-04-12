@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('audio_url');
             $table->string('body1', 1000);
             $table->string('body2', 400);
+            $table->integer('likes_count')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
