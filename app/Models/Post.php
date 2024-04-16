@@ -13,4 +13,19 @@ class Post extends Model
     {
         return $this->orderby('updated_at', 'DESC')->paginate($limit_count);
     }
+    
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+    
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+    
+     public function Categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
 }
