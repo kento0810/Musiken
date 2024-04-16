@@ -9,23 +9,22 @@
 
     </head>
     <body class="antialiased">
-        <h1>音楽ファイル共有アプリ</h1>
-        <a href="/posts/create">create</a>
-        <div class='posts'>
-            @foreach($posts as $post)
-                <div class='post'>
-                    <a href="/posts/{{ $post->id }}"><h2 class='title'>{{ $post->title }}</h2></a>
-                </div>
-                <div>
+        <h1 class='title'>
+            {{ $post->title }}
+        </h1>
+        <div class='content'>
+                <div class='content_post'>
                     <audio controls src="{{ $post->audio_url }}">再生</audio>
+                    <h3>歌詞</h3>
+                    <p class='body'>{{ $post->body1 }}</p>
+                    <h3>説明</h3>
+                    <p class='body'>{{ $post->body2 }}</p>
                 </div>
                  <form action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="post">
                     @csrf
                     @method('DELETE')
                     <button type="button" onclick="deletePost({{ $post->id }})">delete</button>
                 </form>
-            @endforeach
         </div>
-        <div class='paginate'>{{ $posts->links()}}</div>
     </body>
 </html>
