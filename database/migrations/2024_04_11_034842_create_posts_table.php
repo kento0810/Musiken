@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->string('title', 50);
             $table->string('audio_url');
-            $table->string('body1', 1000);
-            $table->string('body2', 400);
+            $table->text('body1');
+            $table->text('body2');
             $table->integer('likes_count')->default(0);
             $table->timestamps();
             $table->softDeletes();
