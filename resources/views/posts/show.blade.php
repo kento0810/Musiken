@@ -13,18 +13,21 @@
             {{ $post->title }}
         </h1>
         <div class='content'>
-                <div class='content_post'>
-                    <audio controls src="{{ $post->audio_url }}">再生</audio>
-                    <h3>歌詞</h3>
-                    <p class='body'>{{ $post->body1 }}</p>
-                    <h3>説明</h3>
-                    <p class='body'>{{ $post->body2 }}</p>
-                </div>
-                 <form action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="post">
-                    @csrf
-                    @method('DELETE')
-                    <button type="button" onclick="deletePost({{ $post->id }})">delete</button>
-                </form>
+            <div class='content_post'>
+                <audio controls src="{{ $post->audio_url }}">再生</audio>
+                <h3>歌詞</h3>
+                <p class='body'>{{ $post->body1 }}</p>
+                <h3>説明</h3>
+                <p class='body'>{{ $post->body2 }}</p>
+            </div>
+            <form action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="post">
+                @csrf
+                @method('DELETE')
+                <button type="button" onclick="deletePost({{ $post->id }})">delete</button>
+            </form>
+        </div>
+        <div class='footer'>
+            <a href="/">戻る</a>
         </div>
     </body>
 </html>
