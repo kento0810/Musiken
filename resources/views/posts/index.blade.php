@@ -19,6 +19,9 @@
                 <div>
                     <audio controls src="{{ $post->audio_url }}">再生</audio>
                 </div>
+                <div>
+                    <a href="{{ $post->audio_url2 }}">再生URL</a>
+                </div>
                  <form action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="post">
                     @csrf
                     @method('DELETE')

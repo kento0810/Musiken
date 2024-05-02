@@ -10,35 +10,36 @@
     </head>
     <body class="antialiased">
         <h1>音楽ファイル共有アプリ</h1>
-        <form action="/posts" method="POST" enctype="multipart/form-data">
+        <form action="/posts/{{ $post->id }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <div class="title">
                 <h2>Song Title</h2>
-                <input type="text" name=post[title] placeholder="タイトル" value={{ old('post.title' )}}>
+                <input type="text" name=post[title] placeholder="タイトル" value={{ $post->title }}>
                 <p class='title__error' style="color:red">{{ $errors->first('post.title')}} </p>
             </div>
             <div class="body">
                 <h2>歌詞</h2>
-                <textarea name="post[body1]" placeholder="歌詞">{{ old('post.body1' )}}</textarea>
+                <textarea name="post[body1]" placeholder="歌詞">{{ $post->body1 }}</textarea>
                 <p class='body__error' style="color:red">{{ $errors->first('post.body1')}} </p>
             </div>
              <div class="body">
                 <h2>説明</h2>
-                <textarea name="post[body2]" placeholder="テーマ、工夫したこと、こだわりなど">{{ old('post.body2' )}}</textarea>
+                <textarea name="post[body2]" placeholder="テーマ、工夫したこと、こだわりなど">{{ $post->body2 }}</textarea>
                 <p class='body__error' style="color:red">{{ $errors->first('post.body2')}} </p>
             </div>
             <div class="audio">
-                <input type="file" name="audio">
+                <input type="file" name="audio" value={{ $post->audio_url }}>
                 <p class='audio__error' style="color:red">{{ $errors->first('audio')}} </p>
             </div>
             <div class="audio">
-                <input type="url" name="post[audio_url2]" placeholder="再生URL">
+                <input type="url" name="post[audio_url2]" value={{ $post->audio_url2 }}>
                 <p class='audio__error' style="color:red">{{ $errors->first('post.audio_url2')}} </p>
             </div>
-            <input type="submit" value="store">
+            <input type="submit" value="update">
         </form>
         <div class='footer'>
-            <a href="/">戻る</a>
+            <a href="/posts/{{ $post->id }}">戻る</a>
         </div>
     </body>
 </html>

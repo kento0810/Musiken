@@ -15,6 +15,7 @@
         <div class='content'>
             <div class='content_post'>
                 <audio controls src="{{ $post->audio_url }}">再生</audio>
+                <p><a href="{{ $post->audio_url2 }}">再生URL</a></p>
                 <h3>歌詞</h3>
                 <p class='body'>{{ $post->body1 }}</p>
                 <h3>説明</h3>
@@ -25,6 +26,9 @@
                 @method('DELETE')
                 <button type="button" onclick="deletePost({{ $post->id }})">delete</button>
             </form>
+        </div>
+        <div class='edit'>
+            <a href="/posts/{{ $post->id }}/edit">編集</a>
         </div>
         <div class='footer'>
             <a href="/">戻る</a>
