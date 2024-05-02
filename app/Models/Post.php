@@ -14,6 +14,7 @@ class Post extends Model
         'body1',
         'body2',
         'audio_url',
+        'audio_url2'
     ];
     
     public function getPaginateByLimit(int $limit_count =5)
