@@ -22,18 +22,23 @@ class PostController extends Controller
         return view ('/posts/show')->with(['post' => $post]);
     }
     
-    public function create()
-    {
-        return view('/posts/create');
-    }
-    
     public function store(PostRequest $request, Post $post) 
     {   
         $input = $request['post'];
         $audio_url = Cloudinary::uploadVideo($request->file('audio')->getRealPath())->getSecurePath();
         $input += ['audio_url' => $audio_url];
+        $input_categories = $request->categories_array; 
         $post->fill($input)->save();
+        $post->categories()->attach($input_categories); 
         return redirect('/posts/' . $post->id);
+        
+        $input_post = $request['post'];
+        $input_categories = $request->categories_array;  //categories_arrayはnameで設定した配列名
+        //先にpostsテーブルにデータを保存
+        $post->fill($input_post)->save();
+        //attachメソッドを使って中間テーブルにデータを保存
+        $post->categories()->attach($input_categories); 
+        return redirect('/posts');
     }
     
     public function edit(Post $post)
@@ -52,5 +57,10 @@ class PostController extends Controller
     {
         $post->delete();
         return redirect('/');
+    }
+    
+    public function create(Category $category)
+    {
+        return view('/posts/create')->with(['categories' => $category->get()]);
     }
 }
