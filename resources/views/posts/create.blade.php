@@ -17,6 +17,16 @@
                 <input type="text" name=post[title] placeholder="タイトル" value={{ old('post.title' )}}>
                 <p class='title__error' style="color:red">{{ $errors->first('post.title')}} </p>
             </div>
+            <div class="category">
+                <h2>ジャンル</h2>
+                @foreach($categories as $category)
+                    <label>
+                        <input type='checkbox' value="{{ $category->id }}" name="categories_array[]">
+                            {{$category->name}}
+                        </input>
+                    </label>
+                @endforeach
+            </div>
             <div class="body">
                 <h2>歌詞</h2>
                 <textarea name="post[body1]" placeholder="歌詞">{{ old('post.body1' )}}</textarea>

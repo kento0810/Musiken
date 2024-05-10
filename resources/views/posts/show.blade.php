@@ -14,6 +14,12 @@
         </h1>
         <div class='content'>
             <div class='content_post'>
+                ジャンル:
+                <h5 class='category'>
+                @foreach($post->categories as $category)   
+                    <a href="/categories/{{ $category->id }}">{{ $category->name }}</a>
+                @endforeach
+                </h5>
                 <audio controls src="{{ $post->audio_url }}">再生</audio>
                 <p><a href="{{ $post->audio_url2 }}">再生URL</a></p>
                 <h3>歌詞</h3>

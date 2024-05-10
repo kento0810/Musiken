@@ -16,12 +16,13 @@ class Post extends Model
         'body1',
         'body2',
         'audio_url',
-        'audio_url2'
+        'audio_url2',
+        'category_id',
     ];
     
     public function getPaginateByLimit(int $limit_count =5)
     {
-        return $this->orderby('updated_at', 'DESC')->paginate($limit_count);
+        return $this::with('categories')->orderby('updated_at', 'DESC')->paginate($limit_count);
     }
     
     public function comments()
