@@ -8,6 +8,10 @@
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
     </head>
+    <x-app-layout>
+        <x-slot name="header">
+            音楽ファイル共有アプリ
+        </x-slot>
     <body class="antialiased">
         <h1>音楽ファイル共有アプリ</h1>
         <form action="/posts/{{ $post->id }}" method="POST" enctype="multipart/form-data">
@@ -42,4 +46,5 @@
             <a href="/posts/{{ $post->id }}">戻る</a>
         </div>
     </body>
+    </x-app-layout>
 </html>
