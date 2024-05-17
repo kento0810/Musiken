@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -33,9 +34,15 @@ Route::controller(PostController::class)->middleware(['auth'])->group(function()
     Route::get('/posts/{post}/edit', 'edit')->name('edit');
     Route::put('/posts/{post}', 'update')->name('update');
     Route::delete('/posts/{post}', 'delete')->name('delete');
+    Route::post('/posts/like', 'like')->name('post.like');
 });
 
 Route::get('/categories/{category}', [CategoryController::class,'index'])->middleware("auth");
+
+Route::controller(CommentController::class)->middleware(['auth'])->group(function(){
+    Route::post('/comments', 'store')->name('store');
+    Route::delete('/comments/{comment}', 'delete')->name('delete');
+});
 
 
 Route::middleware('auth')->group(function () {

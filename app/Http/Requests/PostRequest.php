@@ -20,6 +20,7 @@ class PostRequest extends FormRequest
             'post.body1' => 'required|string|max:1000',
             'post.body2' => 'required|string|max:4000',
             'audio' => 'required|max:100000',
+            'comment.body' => 'required|string|max:1000',
             
             
             
