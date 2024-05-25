@@ -14,7 +14,7 @@
         </x-slot>
     <body class="antialiased">
         <h1>音楽ファイル共有アプリ</h1>
-        <form action="/posts" method="POST" enctype="multipart/form-data">
+        <form action="/posts/store" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="title">
                 <h2>Song Title</h2>

@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('title', 50);
-            $table->string('audio_url'); 
-            $table->string('audio_url2');
+            $table->string('audio_url')->nullable(); 
+            $table->string('audio_url2')->nullable();
             $table->text('body1');
             $table->text('body2');
             $table->integer('likes_count')->default(0);

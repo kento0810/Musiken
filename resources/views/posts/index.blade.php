@@ -22,9 +22,11 @@
                     <a href="/categories/{{ $category->id }}">{{ $category->name }}</a>
                 @endforeach
                 </h5>
+                @if($post->audio_url)
                 <div>
                     <audio controls src="{{ $post->audio_url }}">再生</audio>
                 </div>
+                @endif
                 <div>
                     <a href="{{ $post->audio_url2 }}">再生URL</a>
                 </div>
