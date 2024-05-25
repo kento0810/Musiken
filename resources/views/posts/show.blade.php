@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <meta charset="utf-8">
+        <meta charset="utf-8" >
         <title>音楽ファイル共有アプリ</title>
 
         <!-- Fonts -->
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
     </head>
     <x-app-layout>
         <x-slot name="header">
@@ -26,7 +24,11 @@
                     <a href="/categories/{{ $category->id }}">{{ $category->name }}</a>
                 @endforeach
                 </h5>
-                <audio controls src="{{ $post->audio_url }}">再生</audio>
+                @if($post->audio_url)
+                <div>
+                    <audio controls src="{{ $post->audio_url }}">再生</audio>
+                </div>
+                @endif
                 <p><a href="{{ $post->audio_url2 }}">再生URL</a></p>
                 <h3>歌詞</h3>
                 <p class='body'>{{ $post->body1 }}</p>
@@ -49,6 +51,7 @@
             @endif
             @endauth
             
+
             <form action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="post">
                 @csrf
                 @method('DELETE')
@@ -92,6 +95,7 @@
             }
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        
     </body>
     </x-app-layout>
 </html>

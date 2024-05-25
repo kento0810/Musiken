@@ -15,7 +15,7 @@ class CommentRequest extends FormRequest
     public function rules()
     {
         return [
-            'comment.body' => 'required|string|max:200',
+            'comment.body' => 'required|string|max:10',
         ];
     }
 }
