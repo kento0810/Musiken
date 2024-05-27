@@ -1,51 +1,57 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <title>音楽ファイル共有アプリ</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
-    </head>
-    <body class="antialiased">
-        <h1>音楽ファイル共有アプリ</h1>
-        <a href="/posts/create">create</a>
-        <div class='posts'>
+<head>
+    <meta charset="utf-8">
+    <title>音楽ファイル共有アプリ</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="antialiased bg-gray-100 text-gray-900">
+    <div class="container mx-auto px-4">
+        <h1 class="text-4xl font-bold text-center my-8">音楽ファイル共有アプリ</h1>
+        <div class="text-center mb-4">
+            <a href="/posts/create" class="text-blue-500 hover:underline">create</a>
+        </div>
+        <div class="posts space-y-8">
             @foreach($posts as $post)
-                <div class='post'>
-                    <a href="/posts/{{ $post->id }}"><h2 class='title'>{{ $post->title }}</h2></a>
+                <div class="post bg-white p-6 rounded-lg shadow-lg">
+                    <a href="/posts/{{ $post->id }}">
+                        <h2 class="text-2xl font-semibold mb-2">{{ $post->title }}</h2>
+                    </a>
+                    <h5 class="category text-gray-500 mb-2">
+                        ジャンル:
+                        @foreach($post->categories as $category)
+                            <a href="/categories/{{ $category->id }}" class="text-blue-500 hover:underline">{{ $category->name }}</a>
+                        @endforeach
+                    </h5>
+                    @if($post->audio_url)
+                        <div class="mb-4">
+                            <audio controls src="{{ $post->audio_url }}" class="w-full"></audio>
+                        </div>
+                    @endif
+                    <div class="flex justify-between items-center">
+                        <a href="{{ $post->audio_url2 }}" class="text-blue-500 hover:underline">再生URL</a>
+                        <form action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="post" class="inline-block">
+                            @csrf
+                            @method('DELETE')
+                            <button type="button" onclick="deletePost({{ $post->id }})" class="text-red-500 hover:underline">delete</button>
+                        </form>
+                    </div>
                 </div>
-                ジャンル:
-                <h5 class='category'>
-                @foreach($post->categories as $category)   
-                    <a href="/categories/{{ $category->id }}">{{ $category->name }}</a>
-                @endforeach
-                </h5>
-                @if($post->audio_url)
-                <div>
-                    <audio controls src="{{ $post->audio_url }}">再生</audio>
-                </div>
-                @endif
-                <div>
-                    <a href="{{ $post->audio_url2 }}">再生URL</a>
-                </div>
-                    <form action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <button type="button" onclick="deletePost({{ $post->id }})">delete</button>
-                    </form>
             @endforeach
         </div>
-        <div class='paginate'>{{ $posts->links()}}</div>
-        <script>
-            function deletePost(id) {
-                'use strict'
-                
-                if(confirm('削除すると復元できません。\n本当に削除しますか?')) {
-                    document.getElementById(`form_${id}`).submit();    
-                }
+        <div class="paginate mt-8">
+            {{ $posts->links() }}
+        </div>
+    </div>
+    <script>
+        function deletePost(id) {
+            'use strict';
+            if(confirm('削除すると復元できません。\n本当に削除しますか？')) {
+                document.getElementById(`form_${id}`).submit();
             }
-        </script>
-    </body>
+        }
+    </script>
+</body>
 </html>
+
