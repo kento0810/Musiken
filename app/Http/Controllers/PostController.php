@@ -24,25 +24,28 @@ class PostController extends Controller
         $user = auth()->user();
         $posts = Post::withCount('likes')->orderByDesc('updated_at')->get();
         return view ('/posts/show')->with(['post' => $post]);
+        
     }
     
     public function store(PostRequest $request, Post $post) 
     {   
         $input = $request['post'];
+        if($request->file('audio')){
         $audio_url = Cloudinary::uploadVideo($request->file('audio')->getRealPath())->getSecurePath();
         $input += ['audio_url' => $audio_url];
+        }
         $input_categories = $request->categories_array; 
         $post->fill($input)->save();
         $post->categories()->attach($input_categories); 
         return redirect('/posts/' . $post->id);
         
-        $input_post = $request['post'];
+        /*$input_post = $request['post'];
         $input_categories = $request->categories_array;  //categories_arrayはnameで設定した配列名
         //先にpostsテーブルにデータを保存
         $post->fill($input_post)->save();
         //attachメソッドを使って中間テーブルにデータを保存
         $post->categories()->attach($input_categories); 
-        return redirect('/posts');
+        return redirect('/posts');*/
     }
     
     public function edit(Post $post)
@@ -71,6 +74,7 @@ class PostController extends Controller
     
     public function like(Request $request)
     {
+        
         $user_id = Auth::user()->id; // ログインしているユーザーのidを取得
         $post_id = $request->post_id; // 投稿のidを取得
 
@@ -92,5 +96,32 @@ class PostController extends Controller
             'post_likes_count' => $post_likes_count,
         ];
         return response()->json($param); // JSONデータをjQueryに返す
+       
     }
+    /*public function like(Request $request) {
+        $user_id = Auth::id();
+        $post_id = $request->post_id;
+
+        $already_liked = Like::where('user_id', $user_id)->where('post_id', $post_id)->first();
+
+        if ($already_liked) {
+            // いいねを取り消す
+            $already_liked->delete();
+            $liked = false;
+        } else {
+            // いいねを作成
+            Like::create([
+                'user_id' => $user_id,
+                'post_id' => $post_id,
+            ]);
+            $liked = true;
+        }
+
+        $post_likes_count = Post::withCount('likes')->findOrFail($post_id)->likes_count;
+
+        return response()->json([
+            'liked' => $liked,
+            'likes_count' => $post_likes_count,
+        ]);
+    }*/
 }
