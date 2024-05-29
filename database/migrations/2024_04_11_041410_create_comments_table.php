@@ -10,7 +10,9 @@ return new class extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     -i custom_php.ini . */
+     
+     
     public function up()
     {
         Schema::create('comments', function (Blueprint $table) {
