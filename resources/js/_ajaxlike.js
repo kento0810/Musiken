@@ -23,8 +23,9 @@ $(function () {
         $this.next('.like-counter').html(data.post_likes_count);
       })
       //通信失敗した時の処理
-      .fail(function () {
+      .fail(function (error) {
         console.log('fail'); 
+        console.log(error)
       });
     });
 });
