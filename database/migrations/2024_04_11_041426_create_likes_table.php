@@ -14,10 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('likes', function (Blueprint $table) {
-            $table->unsignedBigInteger('id');
+            $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('post_id')->constrained('posts')->onDelete('cascade');
-            $table->primary(['user_id', 'post_id']);  
+            $table->unique(['user_id', 'post_id']);  
             $table->timestamps();
         });
     }
