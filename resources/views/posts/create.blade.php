@@ -66,7 +66,7 @@
                 </div>
             </form>
             <div class="footer mt-4">
-                <a href="/" class="text-blue-500 hover:underline">戻る</a>
+                <a href="/index" class="text-blue-500 hover:underline">戻る</a>
             </div>
         </div>
     </x-app-layout>

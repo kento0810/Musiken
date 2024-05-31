@@ -82,7 +82,7 @@
                     <a href="/posts/{{ $post->id }}/edit" class="text-blue-500 hover:underline">編集</a>
                 </div>
                 <div class="footer">
-                    <a href="/" class="text-blue-500 hover:underline">戻る</a>
+                    <a href="/index" class="text-blue-500 hover:underline">戻る</a>
                 </div>
             </div>
         </div>
