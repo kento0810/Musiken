@@ -74,7 +74,7 @@ class PostController extends Controller
     
     public function like(Request $request)
     {
-        dd($request);
+        
         $user_id = Auth::user()->id; // ログインしているユーザーのidを取得
         $post_id = $request->post_id; // 投稿のidを取得
 
